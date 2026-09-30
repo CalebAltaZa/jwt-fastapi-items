@@ -107,8 +107,8 @@ comprometa, porque la privada vive en el volumen del servicio de auth.
 docker compose exec items python -m app.seed --user caleb
 ```
 
-Carga 12 items Marvel (los dos primeros como favoritos). Es idempotente: si el
-usuario ya tiene items, no inserta nada.
+Carga 13 items Marvel (los dos primeros como favoritos) con portadas locales en
+`/posters/*.svg`. Es idempotente: si el usuario ya tiene items, no inserta nada.
 
 ## Correr con Docker
 
@@ -121,3 +121,20 @@ docker run --rm -p 8001:8001 \
 ```
 
 Documentacion interactiva: http://localhost:8001/docs
+
+## Pruebas
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+
+.venv/bin/python -m pytest                     # 8 unitarias (no necesita el stack)
+RUN_INTEGRATION=1 .venv/bin/python -m pytest   # + 4 de integración contra :8001
+```
+
+Las unitarias verifican la dependencia de seguridad: token válido, sin token,
+alterado, firmado con otra clave, con `alg:none`, expirado, con otra `audience`
+o con otro `issuer` — todos salvo el primero devuelven 401. Las de integración
+hacen el ciclo completo (crear, listar, marcar favorito, borrar) y comprueban el
+aislamiento: un usuario no ve ni toca los items de otro, y el campo `username`
+del body se ignora porque manda el claim `sub`.

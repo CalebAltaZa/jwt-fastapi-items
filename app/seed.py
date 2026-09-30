@@ -8,30 +8,35 @@ import argparse
 
 from .db import get_conn, init_db, now_iso
 
+# Las imágenes son SVG locales que sirve el frontend (/posters/*.svg), así el
+# dashboard funciona sin internet. El frontend cae a /posters/fallback.svg si
+# una URL falla.
 MARVEL_ITEMS = [
-    ("Avengers: Doomsday", "Películas", "https://picsum.photos/seed/doomsday/480/300",
+    ("Avengers: Doomsday", "Películas", "/posters/doomsday.svg",
      "La nueva saga de los Vengadores, dirigida por los hermanos Russo."),
-    ("Spider-Man: Brand New Day", "Películas", "https://picsum.photos/seed/spidey/480/300",
+    ("Spider-Man: Brand New Day", "Películas", "/posters/spidey.svg",
      "Peter Parker vuelve con una nueva vida."),
-    ("The Fantastic Four: First Steps", "Películas", "https://picsum.photos/seed/fantasticfour/480/300",
+    ("The Fantastic Four: First Steps", "Películas", "/posters/fantastic-four.svg",
      "La Primera Liga se forma de nuevo."),
-    ("What If...?", "Series", "https://picsum.photos/seed/whatif/480/300",
+    ("Black Panther: Wakanda Forever", "Películas", "/posters/wakanda.svg",
+     "Wakanda Forever: el legado de T'Challa."),
+    ("What If...?", "Series", "/posters/whatif.svg",
      "Qué pasaría si... el universo Marvel fuera diferente."),
-    ("WandaVision", "Series", "https://picsum.photos/seed/wanda/480/300",
+    ("WandaVision", "Series", "/posters/wanda.svg",
      "Scarlet Witch y su realidad alternativa."),
-    ("Amazing Fantasy #15", "Cómics", "https://picsum.photos/seed/amazingfantasy/480/300",
+    ("Amazing Fantasy #15", "Cómics", "/posters/amazing-fantasy.svg",
      "La primera aparición de Spider-Man (1962)."),
-    ("Civil War", "Cómics", "https://picsum.photos/seed/civilwar/480/300",
-     "El Avengers original contra el Avengers original."),
-    ("Doctor Doom", "Personajes", "https://picsum.photos/seed/doom/480/300",
+    ("Civil War", "Cómics", "/posters/civil-war.svg",
+     "Los Vengadores originales contra sí mismos."),
+    ("Doctor Doom", "Personajes", "/posters/doom.svg",
      "Victor von Doom, el villano de Avengers: Doomsday."),
-    ("Thanos", "Personajes", "https://picsum.photos/seed/thanos/480/300",
+    ("Thanos", "Personajes", "/posters/thanos.svg",
      "El Titán que parte el universo en dos."),
-    ("Marvel's Spider-Man 2", "Videojuegos", "https://picsum.photos/seed/mssm2/480/300",
+    ("Marvel's Spider-Man 2", "Videojuegos", "/posters/mssm2.svg",
      "El juego de Insomniac con Peter y Miles."),
-    ("Lego Marvel Super Heroes", "Videojuegos", "https://picsum.photos/seed/legomarvel/480/300",
+    ("Lego Marvel Super Heroes", "Videojuegos", "/posters/lego.svg",
      "Todos los héroes en formato Lego."),
-    ("Mech Armor Collector", "Mercancía", "https://picsum.photos/seed/merc/480/300",
+    ("Mech Armor Collector", "Mercancía", "/posters/mech.svg",
      "Coleccionable de la Stark Industries."),
 ]
 
