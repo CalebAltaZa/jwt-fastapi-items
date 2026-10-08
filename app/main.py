@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
+from .accesslog import AccessLogMiddleware, configure_access_logger
 from .config import CATEGORIES, JWT_ISSUER
 from .db import get_conn, init_db, now_iso, row_to_item
 from .models import Item, ItemCreate, ItemUpdate
@@ -28,6 +29,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+configure_access_logger("/var/log/items/access.log")
+app.add_middleware(AccessLogMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
