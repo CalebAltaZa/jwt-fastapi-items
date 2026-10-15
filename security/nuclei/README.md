@@ -56,5 +56,16 @@ críticas/altas explotables detectadas de caja negra).
 
 ## Estado
 
-- [ ] Deshabilitar/proteger `/docs`, `/redoc` y `/openapi.json` en producción
-- [ ] Añadir middleware de cabeceras de seguridad
+Correcciones aplicadas, **cada una con su prueba**:
+
+- [x] Deshabilitar/proteger `/docs`, `/redoc` y `/openapi.json` por defecto
+      (`DOCS_ENABLED=1` para habilitarlos en desarrollo).
+      Validado por [`tests/test_docs_disabled.py`](../../tests/test_docs_disabled.py)
+      y [`security/evidence/fix-docs-disabled.md`](../evidence/fix-docs-disabled.md).
+- [x] Middleware de cabeceras de seguridad (`security_headers.py`).
+      Validado por [`tests/test_security_headers.py`](../../tests/test_security_headers.py)
+      y [`security/evidence/fix-security-headers.md`](../evidence/fix-security-headers.md).
+
+> Tras las correcciones hay que reconstruir la imagen del backend
+> (`docker compose build items && docker compose up -d items`) y volver a
+> lanzar Nuclei para confirmar que los hallazgos desaparecen.
