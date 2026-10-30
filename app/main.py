@@ -10,6 +10,7 @@ from .config import CATEGORIES, DOCS_ENABLED, JWT_ISSUER
 from .db import get_conn, init_db, now_iso, row_to_item
 from .models import Item, ItemCreate, ItemUpdate
 from .security import CurrentUser, get_current_user, public_key
+from .security_headers import SecurityHeadersMiddleware
 
 
 @asynccontextmanager
@@ -36,6 +37,7 @@ app = FastAPI(
 
 configure_access_logger("/var/log/items/access.log")
 app.add_middleware(AccessLogMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
