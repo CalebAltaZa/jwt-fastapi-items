@@ -16,6 +16,10 @@ JWT_AUDIENCE = os.getenv("JWT_AUDIENCE", "jwt-items")
 # --- Database ----------------------------------------------------------------
 DB_PATH = os.getenv("DB_PATH", "/data/items.db")
 
+# --- Documentacion interactiva (Swagger/ReDoc/OpenAPI) -----------------------
+# Deshabilitada por defecto: no exponer el esquema de la API (hallazgo de Nuclei).
+DOCS_ENABLED = os.getenv("DOCS_ENABLED", "0").lower() in ("1", "true", "yes")
+
 # --- Catalog -----------------------------------------------------------------
 CATEGORIES = [
     "Películas",

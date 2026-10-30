@@ -6,7 +6,7 @@ from fastapi import Depends, FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from .accesslog import AccessLogMiddleware, configure_access_logger
-from .config import CATEGORIES, JWT_ISSUER
+from .config import CATEGORIES, DOCS_ENABLED, JWT_ISSUER
 from .db import get_conn, init_db, now_iso, row_to_item
 from .models import Item, ItemCreate, ItemUpdate
 from .security import CurrentUser, get_current_user, public_key
@@ -27,6 +27,9 @@ app = FastAPI(
     ),
     version="1.0.0",
     lifespan=lifespan,
+    # Documentacion interactiva deshabilitada por defecto (DOCS_ENABLED=1 para
+    # habilitarla en desarrollo). Evita exponer el esquema de la API.
+    docs_url="/docs" if DOCS_ENABLED else None,
 )
 
 configure_access_logger("/var/log/items/access.log")
