@@ -56,5 +56,24 @@ críticas/altas explotables detectadas de caja negra).
 
 ## Estado
 
-- [ ] Deshabilitar/proteger `/docs`, `/redoc` y `/openapi.json` en producción
-- [ ] Añadir middleware de cabeceras de seguridad
+Correcciones aplicadas, **cada una con su prueba**:
+
+- [x] Deshabilitar la Swagger UI (`swagger-api`, `/docs`).
+      Validado por [`tests/test_docs_disabled.py`](../../tests/test_docs_disabled.py)
+      y [`security/evidence/fix-swagger-api.md`](../evidence/fix-swagger-api.md).
+- [x] Deshabilitar ReDoc (`redoc-api-docs`, `/redoc`).
+      Validado por [`tests/test_docs_disabled.py`](../../tests/test_docs_disabled.py)
+      y [`security/evidence/fix-redoc-api-docs.md`](../evidence/fix-redoc-api-docs.md).
+- [x] Deshabilitar el esquema OpenAPI (`openapi`, `/openapi.json`).
+      Validado por [`tests/test_docs_disabled.py`](../../tests/test_docs_disabled.py)
+      y [`security/evidence/fix-openapi.md`](../evidence/fix-openapi.md).
+- [x] Cabeceras de seguridad (10, una por commit), en `security_headers.py`.
+      Validado por [`tests/test_security_headers.py`](../../tests/test_security_headers.py)
+      y [`security/evidence/`](../evidence/) (`fix-header-*.md`).
+
+Validación en vivo del stack tras las correcciones:
+[`security/evidence/live-validation.md`](../evidence/live-validation.md).
+
+> Tras las correcciones hay que reconstruir la imagen del backend
+> (`docker compose build items && docker compose up -d items`) y volver a
+> lanzar Nuclei para confirmar que los hallazgos desaparecen.
